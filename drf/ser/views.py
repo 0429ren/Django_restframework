@@ -169,7 +169,7 @@ class Student7View(View):
     def get(self,request):
         """获取所有数据"""
         student_list = Student.objects.all()
-        # 实例化序列化器 当有好多个序列化器时，指定many = True
+        # 实例化序列化器 当有好多个序列化器时，指定many = True  instance 传入的模型对象
         serializer = StudentModelSerializer(instance=student_list,many=True)
         # 返回json格式的数据 多条数据的时候，要用到 safe = False
         return JsonResponse(serializer.data,safe=False)
@@ -182,7 +182,7 @@ class Student7View(View):
         data_dict = json.loads(data_string)
         print(data_dict)
 
-        #调用序列化器
+        #调用序列化器  实现反序列化 data =  用于传入反序列化时客户端传入的数据
         serializer = StudentModelSerializer(data=data_dict)
 
         #  执行验证

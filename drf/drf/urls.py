@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('drf/', include('drftest.urls')),    #应用名.urls
     path('ser/',include('ser.urls')),  #应用名.urls
+    path('req/',include('req.urls')),  #应用名.urls
+
 ]

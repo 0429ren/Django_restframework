@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework', #加上这句在api的前面 添加rest framework 的依赖
     'drftest',  #添加的应用名
-    'ser', # 添加的应用名
+    'ser',  # 添加的应用名
+    'req', #添加的应用名
 
 ]
 
