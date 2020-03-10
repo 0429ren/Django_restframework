@@ -15,11 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from rest_framework import routers
+
+
+router = routers.DefaultRouter()
+
+
+#重要的是如下三行
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.renderers import SwaggerUIRenderer,OpenAPIRenderer
+schema_view = get_schema_view(title='Users API',renderer_classes=[OpenAPIRenderer,SwaggerUIRenderer])
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('drf/', include('drftest.urls')),    #应用名.urls
-    path('ser/',include('ser.urls')),  #应用名.urls
-    path('req/',include('req.urls')),  #应用名.urls
-
+    path('ser/', include('ser.urls')),  #应用名.urls
+    path('req/', include('req.urls')),  #应用名.urls
+    path('col/', include('collect.urls')),  #应用名.urls
+    path('opt/', include('opt.urls')),  #应用名.urls
+    #swagger接口文档路由
+    path('docs/', schema_view,name='docs'),
+    #drf登陆
+    path('api-auth',include('rest_framework.urls'))
 ]

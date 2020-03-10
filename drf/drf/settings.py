@@ -40,11 +40,39 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework', #加上这句在api的前面 添加rest framework 的依赖
+    'django_filters',  #注册自带的过滤器应用
     'drftest',  #添加的应用名
     'ser',  # 添加的应用名
     'req', #添加的应用名
+    'collect',#添加的应用名 方便学习视图集和路由集
+    'opt',
+    'rest_framework_swagger',
 
 ]
+
+#swagger 配置项
+SWAGGER_SETTINGS = {
+    #基础样式
+    'SECURITY_DEFTINTIONS':{
+        "basic":{
+            'type':'basic'
+        }
+    },
+    #如果需要登陆才能查看接口文档，登陆的链接使用restframework自带的
+    'LOGIN_URL':'rest_framework:login',
+    'LOGOUT_URL':'rest_framework:logout',
+    #'DOC_EXPANSION':None,
+    #'SHOW_REQUEST_HEADERS':True,
+    #'USE_SESSION_AUTH':True,
+    #'DOC_EXPANSION':'list,
+    #接口文档中方法列表以首字母升序排列
+    'APIS_SORTER':'alpha',
+    #如果支持json提交，则接口文档中包含json输入框,
+    'JSON_EDITOR':True,
+    #方法列表字母排序
+    'OPERATIONS_SORTER': 'alpha',
+    'VALIDATPR_URL': None
+    }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -116,18 +144,38 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'  #修改后台显示界面字体为汉语
 
-TIME_ZONE = 'UTC'
+
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'   #修改时间为上海时间
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = True   #是否使用TIME_ZONE
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+REST_FRAMEWORK = {
+    #限流配置
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #     'rest_framework.throttling.AnonRateThrottle',  #匿名用户限流
+    #     'rest_framework.throttling.UserRateThrottle',  #登陆用户限流
+    #                             ),
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'anon': '1/second',
+    #     'user':'3/minute',
+    # },
+    #过滤
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    #自定义异常
+    'EXCEPTION_HANDLER':'utils.exception.custom_exception_handler'
+}
