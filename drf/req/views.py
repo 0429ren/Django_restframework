@@ -66,6 +66,7 @@ class Student2APIView(APIView):
         """添加数据"""
         #接收post请求数据
         data_dict = request.data
+        print(request.data)
         #调用序列化器
         serializer = StudentModelSerializer(data=data_dict)
         #验证

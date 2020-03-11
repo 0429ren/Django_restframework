@@ -29,7 +29,7 @@ class Student1View(View):
 
         serializer = StudentSerializers(instance=student)
         # 2.获取序列化器转换的结果
-        print(serializer.data)
+        print(serializer.data,type(serializer.data))
         return HttpResponse(str(serializer.data))
         # HttpResponse 一定是字符串格式的数据
         # return HttpResponse('ok')
@@ -111,6 +111,7 @@ class Student5View(View):
     def put (self,request,pk):
         """在更新中调用序列化器完成数据的更新操作"""
         student_object = Student.objects.get(pk=pk)
+        print(student_object)
         #模拟用户提交数据
         data_dict = {"name": "xiaohua", "sex": 1, "age": 18, "class_null": "405", "description": "好黑"}
 
