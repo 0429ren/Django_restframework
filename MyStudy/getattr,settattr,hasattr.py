@@ -28,3 +28,5 @@ print(datetime.datetime.now())
 print(datetime.datetime.now().second)
 #截取日期中的年月日
 print(datetime.datetime.now().date())
+
+print('测试git对比')
