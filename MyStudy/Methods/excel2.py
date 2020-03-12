@@ -26,12 +26,14 @@ class ExportExcel:
         for index,col in enumerate(self.columns):
             col_ext = self.columns_ext.get(col)
             col_ext_name = col_ext if col_ext else col
-            ws.write(0,index,col_ext_name.decode('utf8'))
+            print(col_ext_name,type(col_ext_name))
+            ws.write(0,index,col_ext_name.encode('utf8').decode('utf8'))
         #写入内容
         for index,data in enumerate(self.data_list):
             for col_index,col in enumerate(self.columns):
-                ws.write(index+1,col_index,str(data.get(col,self.fill_none)).decode('utf8'))
+                ws.write(index+1,col_index,str(data.get(col,self.fill_none)).encode('utf8').decode('utf8'))
         bio = BytesIO()
+        print(bio)
         wb.save(bio)
         return bio
 

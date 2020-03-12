@@ -36,5 +36,5 @@ urlpatterns = [
     #swagger接口文档路由
     path('docs/', schema_view,name='docs'),
     #drf登陆
-    path('api-auth',include('rest_framework.urls'))
+    path('My_Api-auth',include('rest_framework.urls'))
 ]
