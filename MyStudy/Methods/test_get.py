@@ -55,6 +55,58 @@ def export_data_to_excel(tb_name,student_all_data,fields):
     wb.save("%s.xls" % tb_name)
 
 
+
+#测试默认值
+data_list = []
+def test_default(student_list):
+    for res in student_list:
+
+        #默认值为None 或 0 时  相当于不存在
+        # name = res.get('name') if res.get('name') else None
+        # if not name:
+        #     print('None')
+        # name = res.get('name') if res.get('name') else 0
+        # if not name:
+        #     print('None')
+        #对于转整函数的使用 要注意 当字段类型为varchar 是不能转整的
+        a = res.get('class_null')
+        print(a,type(a))
+
+        b = res.get('age')
+        print(b, type(b))
+
+        c = res.get('name')
+        print(c,type(c))
+
+
+
+
+
+        data = {
+
+            #如果不存在 默认值为None
+            # 'name': res.get('name') if res.get('name') else None
+            # 这样设置 默认值为0
+            # 'name': res.get('name') if res.get('name') else 0
+
+
+            #1.res.get('name',默认值)  当name字段在数据库中的类型为字符串类型时  无论设置的默认值是什么 只要找不到 打印出来都是空 返回的都是空字符串
+            #如果不存在 默认值为空字符串 ''
+            # 'name': res.get('name',None)
+            #如果不存在 只要默认值是数字 均为空字符串 ''
+            'name': res.get('name',0),
+            #如果不存在 只要默认值是0 均为空字符串
+            'class_null': res.get('class_null', 0),
+
+            #2.res.get('age',默认值)  当age字段在数据库中的类型为int类型时  无论设置的默认值是什么 只要找不到 打印出来都是None 返回的都是None
+            'age':res.get('age',1),
+            'age2':res.get('age')
+        }
+        data_list.append(data)
+    print(data_list)
+    return data_list
+
+
 # #将数据导出到excel
 # def export_data_to_excel(student_list):
 #     columns = ['id','name', 'sex', 'age', 'class_null', 'description']
@@ -77,6 +129,7 @@ if __name__ == '__main__':
     tb_name = input('请输入表名:')
     sql = "select*from %s"%tb_name
     count,data,fields = get_db_curser(conn,sql)
-    student_data,student_list=get_data_result(count, data)
+    student_data,student_list = get_data_result(count, data)
+    test_default = test_default(student_list)
     export_data_to_excel(tb_name,data,fields)
     # export_data_to_excel(student_list)
